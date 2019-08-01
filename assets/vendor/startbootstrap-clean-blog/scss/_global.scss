@@ -1,6 +1,6 @@
 // Global styling for this template
 body {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   color: $gray-800;
   @include sans-serif-font;
@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 800;
+  font-weight: 400;
   @include sans-serif-font;
 }
 

@@ -1,5 +1,32 @@
-.ym-post__content--custom a {
-  color: #337ab7;
+.ym-post__content--custom {
+  a {
+    color: #337ab7;
+  }
+  h6 {
+    font-size: 16px;
+  }
+  h5 {
+    font-size: 18px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: 500;
+    margin: 20px 0 10px 0;
+  }
+  p {
+    margin: 0 0 15px 0;
+  }
 }
 
 .navbar-brand {

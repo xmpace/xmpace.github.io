@@ -1,0 +1,38 @@
+title:              野马的博客
+email:              xmpace@gmail.com
+description:        野马的架构之路
+author:             xmpace
+baseurl:            ""
+url:                "http://yemablog.com"
+
+# Social Profiles
+github_username:    xmpace
+weibo_username:     xmpace
+zhihu_username:     xmpace
+
+# Add your google-analytics ID here to activate google analytics
+google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+
+permalink: none
+highlighter: rouge
+
+# Build settings
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

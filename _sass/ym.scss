@@ -27,6 +27,12 @@
   p {
     margin: 0 0 15px 0;
   }
+  img {
+    border: 0.3em solid #e0dfcc;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+  }
 }
 
 .navbar-brand {

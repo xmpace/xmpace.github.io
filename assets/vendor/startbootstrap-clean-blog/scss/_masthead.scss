@@ -65,7 +65,7 @@ header.masthead {
       font-size: 20px;
       font-weight: 300;
       font-style: italic;
-      @include sans-serif-font;
+      @include serif-font;
       a {
         color: $white;
       }

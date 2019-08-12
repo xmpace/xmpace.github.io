@@ -93,3 +93,24 @@
   }
 }
 // -----图片放大 end-----
+
+.ym-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 100px 0 100px;
+  border-bottom: 1px dashed $gray-300;
+}
+
+.ym-list-item__title {
+  font-size: 20px;
+}
+
+.ym-list-item__link {
+  color: $gray-700;
+}
+
+.ym-list-item__date {
+  font-size: 14px;
+  color: $gray-600;
+}

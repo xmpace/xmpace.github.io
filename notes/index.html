@@ -1,0 +1,16 @@
+---
+layout: page
+title: Notes
+background: '/img/bg-post.jpg'
+---
+
+{% for post in site.notes %}
+
+<div class="ym-list-item">
+  <span class="ym-list-item__title">
+      <a class="ym-list-item__link" target="_blank" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+  </span>
+  <span class="ym-list-item__date">{{ post.date | date: '%Y-%m-%d' }}</span>
+</div>
+
+{% endfor %}

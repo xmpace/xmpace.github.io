@@ -114,3 +114,86 @@
   font-size: 14px;
   color: $gray-600;
 }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+table > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+table > tbody > tr:hover {
+  background-color: #ffe;
+}
+.highlight table > tbody > tr:nth-of-type(odd) {
+  background-color: transparent;
+}
+.highlight table > tbody > tr:hover {
+  background-color: transparent;
+}
+
+table {
+  margin: 20px 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  table-layout: fixed;
+  word-wrap: break-all;
+}
+caption,
+th,
+td {
+  padding: 5px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: normal;
+}
+th,
+td {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #eee;
+}
+th {
+  text-align: center;
+  padding: 10px 5px;
+  font-weight: 700;
+}
+td {
+  border-bottom-width: 1px;
+}
+th.column-1 {
+  width: 10%;
+}
+th.column-2 {
+  width: 20%;
+}
+th.column-3 {
+  width: 30%;
+}
+th.column-4 {
+  width: 40%;
+}
+th.column-5 {
+  width: 50%;
+}
+th.column-6 {
+  width: 60%;
+}
+th.column-7 {
+  width: 70%;
+}
+th.column-8 {
+  width: 80%;
+}
+th.column-9 {
+  width: 90%;
+}
+th.column-10 {
+  width: 100%;
+}

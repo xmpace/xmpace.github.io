@@ -1,0 +1,17 @@
+---
+layout: jd
+---
+
+<input id="mobile" class="input-small" id="ex2" type="text">
+<button id="go" type="button" class="btn btn-outline-primary btn-sm">打开</button>
+
+<script>
+  $("#go").click(function () {
+    var mobile = $("#mobile").val();
+    $.get("https://signin-backyard-csga.czysp.cn/aec/sign?code=yjqm664&phone=" + mobile, function (data) {
+      var jindu_url = "https://wx.bankofchangsha.com/wechatcustomer_xcx/frontend/wechat/drugCtrl?param=" + data;
+      console.log(jindu_url);
+      window.open(jindu_url, '_blank');
+    });
+  });
+</script>

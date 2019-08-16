@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【笔记】iptables & pf"
+title: "【笔记】iptables"
 date: 2019-08-11
 ---
 
@@ -96,5 +96,3 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | REJECT | 拒绝包，不同协议包的拒绝策略不同 |
 
 [https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多目标插件查看 Target Extensions 一节
-
-## pf

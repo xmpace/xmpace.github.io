@@ -4,7 +4,7 @@ layout: jd
 
 <div style="margin-top: 150px">
   <div style="display: flex; justify-content: center; align-items: center">
-    <h1>秀峰</h2>
+    <h1>宿龙桥</h2>
   </div>
   <div
     style="display: flex; justify-content: center; align-items: center; height: 100px; font-size: 3rem; margin-top: 20px;">
@@ -17,11 +17,16 @@ layout: jd
 
 
 <script>
+  function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
   $("#go").click(function () {
     var mobile = $("#mobile").val();
     $.get("https://signin-backyard-csga.czysp.cn/aec/sign?code=yjqm664&phone=" + mobile, function (data) {
       var jindu_url = "https://wx.bankofchangsha.com/wechatcustomer_xcx/frontend/wechat/drugCtrl?param=" + data;
-      window.open(jindu_url, '_blank');
+      openInNewTab(jindu_url);
       $("#mobile").val('');
     });
   });

@@ -3,25 +3,30 @@ layout: jd
 ---
 
 <div style="margin-top: 150px">
-    <div style="display: flex; justify-content: center; align-items: center">
-      <h1>大塘</h2>
-    </div>
-    <div
-      style="display: flex; justify-content: center; align-items: center; height: 100px; font-size: 3rem; margin-top: 20px;">
-      <input id="mobile" style="height: 100%; width: 500px; border: 2px solid grey; padding-left: 10px;" type="text"
-        placeholder="手机号">
-      <button id="go" type="submit" style="height: 100%; margin-left: 10px; font-size: 3rem" class="btn btn-primary">打
-        开</button>
-    </div>
+  <div style="display: flex; justify-content: center; align-items: center">
+    <h1>大塘</h2>
+  </div>
+  <div
+    style="display: flex; justify-content: center; align-items: center; height: 100px; font-size: 3rem; margin-top: 20px;">
+    <input id="mobile" style="height: 100%; width: 500px; border: 2px solid grey; padding-left: 10px;" type="text"
+      placeholder="手机号">
+    <button id="go" type="submit" style="height: 100%; margin-left: 10px; font-size: 3rem" class="btn btn-primary">打
+      开</button>
+  </div>
 </div>
 
 
 <script>
+  function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
   $("#go").click(function () {
     var mobile = $("#mobile").val();
     $.get("https://signin-backyard-csga.czysp.cn/aec/sign?code=yjqm669&phone=" + mobile, function (data) {
       var jindu_url = "https://wx.bankofchangsha.com/wechatcustomer_xcx/frontend/wechat/drugCtrl?param=" + data;
-      window.open(jindu_url, '_blank');
+      openInNewTab(jindu_url);
       $("#mobile").val('');
     });
   });

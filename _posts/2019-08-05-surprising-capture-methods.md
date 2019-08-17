@@ -2,7 +2,7 @@
 layout: post
 title: "App抓包另类方法"
 excerpt: App抓不到包？试试这个另类的方法！
-background: img/bg-post.jpg
+background: /img/bg-post.jpg
 ---
 出于研究的目的，我们经常需要对 App 抓包，抓包的方法大家都知道，装个 Charles，在设备上安装好根证书，设置好代理就可以了。
 

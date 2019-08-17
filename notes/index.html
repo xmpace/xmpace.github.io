@@ -4,7 +4,8 @@ title: Notes
 background: '/img/bg-post.jpg'
 ---
 
-{% for post in site.notes %}
+{% assign ordered_pages = site.notes | reverse %}
+{% for post in ordered_pages %}
 
 <div class="ym-list-item">
   <span class="ym-list-item__title">

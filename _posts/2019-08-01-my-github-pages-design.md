@@ -2,6 +2,7 @@
 layout: post
 title: "我的博客设计思路"
 excerpt: 这个博客的一些设计思路
+background: /img/bg-post.jpg
 ---
 ## 开始
 准备写写博客，但是在其他博客平台上完全提不起兴趣来写，于是想着自己着手搭一个Github Pages。

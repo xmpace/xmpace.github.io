@@ -2,6 +2,8 @@
 layout: post
 title: "【笔记】iptables"
 date: 2019-08-11
+background: /img/bg-post.jpg
+num: 1
 ---
 
 ## iptables
@@ -41,19 +43,19 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | 参数 | 说明 |
 | :--- | :--- |
 | -p, \--protocol \[!\] *protocol* | 协议，TCP、UDP、ICMP |
-| -s, \--source \[!\] *address*\[*/mask*\] | 源ip地址 |
-| -d, \--destination \[!\] *address*\[*/mask*\] | 目的ip地址 |
+| -s, \--source \[!\] *address*\[*/mask*\] | 源 ip 地址 |
+| -d, \--destination \[!\] *address*\[*/mask*\] | 目的 ip 地址 |
 | -j, \--jump *target* | 匹配成功则跳转到目标，目标可以是自定义链、内置目标或插件。该参数省略的话则只计数 |
-| -g, \--goto *chain* | 假设从A链执行-j跳到B链，再从B链执行-g跳到C链，那么从C链返回时，B链后续不执行，跳到A链继续执行。如果A链也是-g跳的，那么继续再往上，一直到默认链策略为止 |
+| -g, \--goto *chain* | 假设从 A 链执行 -j 跳到 B 链，再从 B 链执行 -g 跳到 C 链，那么从 C 链返回时，B 链后续不执行，跳到 A 链继续执行。如果 A 链也是 -g 跳的，那么继续再往上，一直到默认链策略为止 |
 | -i, \--in-interface \[!\] *name* | 包流入的网络接口 |
 | -o, \--out-interface \[!\] *name* | 包流出的网络接口 |
-| \[!\] -f, \--fragment | 首包之后的包，IP分片之后，只有首包有四层协议的头信息，后面的包都没有，因此根据端口之类的匹配，对于首包之后的包是无效的，所以得额外针对首包之后的包写匹配规则 |
+| \[!\] -f, \--fragment | 首包之后的包，IP 分片之后，只有首包有四层协议的头信息，后面的包都没有，因此根据端口之类的匹配，对于首包之后的包是无效的，所以得额外针对首包之后的包写匹配规则 |
 | -c, \--set-counters *PKTS BYTES* | 设置计数器 |
-| -n, \--numeric | IP地址和端口显示为数字 |
+| -n, \--numeric | IP 地址和端口显示为数字 |
 | \--line-nubmers | 显示序号 |
 
 ## 匹配插件
-匹配除了用选项提供的源目的IP地址等来匹配，还可以用功能强大的匹配插件来匹配，iptables已经内置了许多匹配插件。要使用匹配插件，指定选项 -m 或 --match，后面跟插件名即可。如果指定了匹配插件，用 -h 或 --help 即可查看该插件的帮助。
+匹配除了用选项提供的源目的 IP 地址等来匹配，还可以用功能强大的匹配插件来匹配，iptables 已经内置了许多匹配插件。要使用匹配插件，指定选项 -m 或 --match，后面跟插件名即可。如果指定了匹配插件，用 -h 或 --help 即可查看该插件的帮助。
 
 插件都带有自己的选项，具体选项可从文档查询。
 
@@ -78,7 +80,7 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | RELATED | FTP 关联连接 |
 | INVALID | 非法连接状态 |
 
-更多解释可参看[http://people.netfilter.org/pablo/docs/login.pdf](http://people.netfilter.org/pablo/docs/login.pdf) state 一节
+更多解释可参看 [http://people.netfilter.org/pablo/docs/login.pdf](http://people.netfilter.org/pablo/docs/login.pdf) state 一节
 
 [https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多匹配插件查看 Match Extensions 一节
 
@@ -91,8 +93,28 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | :--- | :--- |
 | DNAT | 修改包目的地址 |
 | SNAT | 修改包源地址 |
-| MASQUERADE | 特殊的SNAT，网络包流出网卡的时候，用网卡的 IP 替换包源地址 |
+| MASQUERADE | 特殊的 SNAT，网络包流出网卡的时候，用网卡的 IP 替换包源地址 |
 | REDIRECT | 修改包的目的地址为入网卡地址，以将包重定向到本机 |
 | REJECT | 拒绝包，不同协议包的拒绝策略不同 |
 
 [https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多目标插件查看 Target Extensions 一节
+
+## iptables 示例
+
+{% highlight terminal %}
+# 屏蔽 ip
+iptables -t filter -I INPUT -s 59.45.175.62 -j REJECT
+
+# 查看 rules
+iptables -t filter -L INPUT --line-number
+
+# 删除 filter 表 INPUT 链的第 1 条规则
+iptables -t filter -D INPUT 1
+
+# 丢弃源 ip 地址为 59.45.175.0/24 的 22 和 5901 端口上的 tcp 包
+iptables -t filter -A INPUT -p tcp -m multiport --dports 22,5901 -s 59.45.175.0/24 -j DROP
+
+{% endhighlight %}
+
+## 参考
+[An In-Depth Guide to iptables, the Linux Firewall](https://www.booleanworld.com/depth-guide-iptables-linux-firewall)

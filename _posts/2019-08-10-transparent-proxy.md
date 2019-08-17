@@ -2,7 +2,7 @@
 layout: post
 title: "如何使用透明代理抓 HTTPS"
 excerpt: "要抓 HTTPS 很容易，但有些情况下只能使用透明代理来抓"
-background: img/bg-post.jpg
+background: /img/bg-post.jpg
 ---
 
 ## 什么是透明代理

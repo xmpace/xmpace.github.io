@@ -3,7 +3,6 @@ layout: post
 title: "【笔记】透明代理是如何知道包的原目的地址的？"
 date: 2019-08-16
 background: /img/bg-post.jpg
-num: 2
 ---
 
 搭建透明代理时，会用到iptables对流量重定向。

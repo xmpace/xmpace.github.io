@@ -3,7 +3,6 @@ layout: post
 title: "【笔记】iptables"
 date: 2019-08-11
 background: /img/bg-post.jpg
-num: 1
 ---
 
 ## iptables

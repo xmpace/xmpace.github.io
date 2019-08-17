@@ -9,24 +9,20 @@ background: /img/bg-post.jpg
 与 iptables 不同，pf 生效的是最后一条匹配规则，除非指定 quick 关键字。quick 指示 pf 立即生效当前规则，并停止执行后续规则。
 
 ### 过滤
-
-{% highlight terminal %}
+```
 action [direction] [log] [quick] [on interface] [af] [proto protocol]
        [from src_addr [port src_port]] [to dst_addr [port dst_port]]
        [flags tcp_flags] [state]
-{% endhighlight %}
+```
 
 ### NAT
-
-{% highlight terminal %}
+```
 nat [pass] [log] on interface [af] from src_addr [port src_port] to \
         dst_addr [port dst_port] -> ext_addr [pool_type] [static-port]
-{% endhighlight %}
+```
 
 ## Cheat Sheet
-
-{% highlight terminal %}
-
+```bash
 # Load the pf.conf file
 pfctl -f  /etc/pf.conf
 
@@ -41,28 +37,27 @@ block in on dc0 from 8.8.8.8 to any 192.168.0.1/24
 
 # 重定向 80 端口的 tcp 流量到 192.168.1.20 的 80 端口
 rdr on tl0 proto tcp from any to any port 80 -> 192.168.1.20
-
-{% endhighlight %}
+```
 
 ## 其他
-MacOS 打开包转发功能
-```
+**MacOS 打开包转发功能**
+```bash
 sudo sysctl -w net.inet.ip.forwarding=1
 ```
 
-加载 pf 规则
+**加载 pf 规则**
 1. 关闭 pf
-```
+```bash
 sudo pfctl -d
 ```
 
 2. 加载规则
-```
+```bash
 sudo pfctl -f ~/pf.conf
 ```
 
 3. 启动 pf
-```
+```bash
 sudo pfctl -e
 ```
 

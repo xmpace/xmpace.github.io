@@ -19,9 +19,12 @@ $(function () {
     var specifiedHeight = thisImg.attr("height");
 
     if (!specifiedHeight && !specifiedWidth) {
-      var imgWidth = thisImg.prop("width");
+      var imgWidth = thisImg.prop("naturalWidth");
       var maxWidth = $(".ym-post__content--custom").innerWidth();
-      var bestWidth = imgWidth / 2 > maxWidth ? maxWidth : imgWidth / 2;
+      if (os === 'mac') {
+        imgWidth = imgWidth / 2;
+      }
+      var bestWidth = imgWidth > maxWidth ? maxWidth : imgWidth;
       thisImg.prop("width", bestWidth);
     }
   });

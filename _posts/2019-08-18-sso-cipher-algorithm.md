@@ -56,3 +56,9 @@ background: /img/bg-post.jpg
 登录成功后，后续请求都将 token 带上，服务端拿到 token 后做相应的解析和校验就可以验证用户的身份了。
 
 <img src="/img/posts/sso-cipher-algorithm-4.png" alt="Token 验证过程" os="mac" />
+
+以上就是 token 认证的一个基本方案，在这个基础上可以根据需要定制，比如在服务端我们只存了临时随机密码，其他信息也是可以存的，比如存登录时间以实现过期等。
+
+如果需要实现多端登录管理，那么我们可以为每个登录的 token 生成一个id，用 token 的 id 来替代上文 token 中的账号 id，当然服务端也需要以 token 的 id 来作为 key 存储，原理是一样的。
+
+最后，最好能放个版本号在 token 里，这样以后需要升级的话可以根据版本号执行不同的方案，无缝升级，完美~

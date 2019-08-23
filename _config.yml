@@ -12,6 +12,7 @@ zhihu_username:     xmpace
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   UA-146363058-1 # out your google-analytics code
+baidu_tongji: 390b155f0f9a1f74e3b39b9b9238f3da
 
 permalink: none
 highlighter: rouge

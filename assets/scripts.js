@@ -34,5 +34,16 @@ $(function () {
     thisImg.prop("src", thisImg.prop("src"));
   });
 
+  const gitalk = new Gitalk({
+    clientID: '95ce8cff68f8fca34fea',
+    clientSecret: '48eb16fdf70e5668ecfddf4d211cdab1df231318',
+    repo: 'xmpace.github.io',
+    owner: 'xmpace',
+    admin: ['xmpace'],
+    perPage: 50,
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  });
   
+  gitalk.render('gitalk-container');
 })

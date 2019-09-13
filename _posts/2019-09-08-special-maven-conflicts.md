@@ -48,7 +48,7 @@ public class WeirdClass {
 
 这是显而易见的嘛，如果你指定 weird-lib 为 2.0，那么 weird-lib 中就没有 advancedFoo 方法，B 会报 NoSuchMethod 的错误。如果你指定 weird-lib 为 10.0 版本，那么 weird-lib 中就没有 foo 方法，A 又会报 NoSuchMethod 的错误。
 
-上面这个问题其实就是 **依赖不兼容** 造成的，稍有经验的 Java 后端程序员可能都碰到过，比如 Protobuf 2 与 Protobuf 3 就不兼容，Thrift 0.8.0 与 Thrift 0.9.1 也不兼容。如果，某个服务是用 Thrift 0.8.0 开发的，另一个服务是用 Thrift 0.9.1 开发，那么，你想在你的应用中同时调用这两个服务就会碰到上面提到的依赖不兼容问题。
+上面这个问题其实就是 **依赖不兼容** 造成的，稍有经验的 Java 后端程序员可能都碰到过，比如 Protobuf 2 与 Protobuf 3 就不兼容，Thrift 0.8.0 与 Thrift 0.9.1 也不兼容。如果，某个服务是用 Thrift 0.8.0 开发的，另一个服务是用 Thrift 0.9.1 开发的，那么，你想在你的应用中同时调用这两个服务就会碰到上面提到的依赖不兼容问题。
 
 ## 解决方法
 这种依赖不兼容的问题可以通过 Class Loader 隔离来解决。

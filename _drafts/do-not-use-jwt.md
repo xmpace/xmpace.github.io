@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "不要用 JWT 做登录 Token"
-excerpt: 不要用 JWT 做登录 Token
-background: /img/bg-post.jpg
+title: "公司用 JWT 做登录，数据被前员工爬了个遍"
+excerpt: 长点心吧，还用 JWT 做登录呢？
 ---
+

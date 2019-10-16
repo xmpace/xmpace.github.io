@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "互联网业务中用户、商家、订单号等 id 如何生成"
+redirect_from:
+  - /how-to-generate-id
+  - /how-to-generate-id.html
 ---
 
 id 在互联网企业的业务中无处不在，用户、商家、订单号、商品等都是用 id 来唯一标识的。

@@ -3,6 +3,9 @@ layout: post
 title: "登录Token如何设计"
 excerpt: "一种靠谱的登录Token设计"
 background: /img/bg-post.jpg
+redirect_from:
+  - /sso-cipher-algorithm
+  - /sso-cipher-algorithm.html
 ---
 
 ## Token 的由来

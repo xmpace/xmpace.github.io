@@ -3,6 +3,9 @@ layout: post
 title: "Maven 依赖不兼容如何处理"
 excerpt: "Maven 依赖不兼容的解决办法"
 background: /img/bg-post.jpg
+redirect_from:
+  - /special-maven-conflicts
+  - /special-maven-conflicts.html
 ---
 
 Maven 依赖冲突如何处理估计大家都烂熟于心了，但有一种 Maven 依赖冲突你可能没遇到过。让我来举个例子。

@@ -9,7 +9,11 @@ background: /img/bg-post.jpg
 
 <img src="/img/posts/notes-iptables-1.png" width="100%" alt="iptables flow" />
 
-上图是数据包的流动，如果不是发往本机的包，走的是中间的转发流程。否则走的是右边的流程。Linux 转发需要打开转发配置才可以。
+上图是数据包的流动，如果不是发往本机的包，走的是中间的转发流程。否则走的是右边的接收流程。
+
+走转发还是走接收是本机的路由表决定的。
+
+Linux 转发需要打开转发配置才可以。
 
 {% highlight terminal %}
 sysctl -w net.ipv4.ip_forward=1
@@ -79,6 +83,8 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | RELATED | FTP 关联连接 |
 | INVALID | 非法连接状态 |
 
+iptables 做 SNAT 或 DNAT 都依赖于连接状态，有连接状态，在回包的时候才知道如何恢复。NAT 是个双向过程，所以一般只需要配置一条 DNAT 或 SNAT 即可，没必要配置对应的反向规则。
+
 更多解释可参看 [http://people.netfilter.org/pablo/docs/login.pdf](http://people.netfilter.org/pablo/docs/login.pdf) state 一节
 
 [https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多匹配插件查看 Match Extensions 一节
@@ -96,7 +102,9 @@ iptables 命令可以概括为：在某表的某链上，对满足指定规则�
 | REDIRECT | 修改包的目的地址为入网卡地址，以将包重定向到本机 |
 | REJECT | 拒绝包，不同协议包的拒绝策略不同 |
 
-[https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多目标插件查看 Target Extensions 一节
+[https://linux.die.net/man/8/iptables](https://linux.die.net/man/8/iptables) 更多常用目标插件查看 Target Extensions 一节
+
+[http://man7.org/linux/man-pages/man8/iptables-extensions.8.html](http://man7.org/linux/man-pages/man8/iptables-extensions.8.html) 更多扩展插件参看这个，常见的比如 TPROXY，用来配置透明代理的。
 
 ## iptables 示例
 
@@ -117,3 +125,4 @@ iptables -t filter -A INPUT -p tcp -m multiport --dports 22,5901 -s 59.45.175.0/
 
 ## 参考
 [An In-Depth Guide to iptables, the Linux Firewall](https://www.booleanworld.com/depth-guide-iptables-linux-firewall)
+[https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture 强烈推荐这篇](https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture)

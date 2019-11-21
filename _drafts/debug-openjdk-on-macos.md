@@ -11,6 +11,8 @@ excerpt: "不能调试，不能代码跳转还怎么读源码？"
 
 下载 OpenJDK 9 源码，这个不多说了，自己找吧
 
+### 编译
+
 ```bash
 ./configure --with-target-bits=64 --with-freetype=/usr/local/Cellar/freetype/2.10.1 --enable-ccache --with-jvm-variants=server --with-boot-jdk-jvmargs="-Xlint:deprecation -Xlint:unchecked" --with-native-debug-symbols=internal --disable-warnings-as-errors --with-debug-level=slowdebug 2>&1 | tee configure_mac_x64.log
 ```
@@ -19,7 +21,24 @@ excerpt: "不能调试，不能代码跳转还怎么读源码？"
 
 configure 完然后执行 make all 构建。
 
-CLion 直接导入 JDK 源码根目录，直接下一步，然后 debug 配置中可执行文件选 build/macosx-x86_64-normal-server-slowdebug/jdk/bin/java，删掉启动前的 build 步骤，在 jdk/src/java.base/share/native/launcher/main.c 的 main 函数打断点即可断下调试，这就是 java 的入口。
+### 导入 CLion
+先导入 jdk 目录，直接下一步，CLion 会为 jdk 目录生成 CMakeLists.txt。然后退出，再导入 hotspot 目录，直接下一步，为 hotspot 生成 CMakeLists.txt。最后导入 jdk9 根目录，直接下一步，修改 CMakeLists.txt 为如下内容：
+
+```
+cmake_minimum_required(VERSION 3.15)
+project(jdk9)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_subdirectory(jdk)
+add_subdirectory(hotspot)
+```
+
+导入完成。
+
+### 调试
+
+然后配置调试，debug 配置中可执行文件选 build/macosx-x86_64-normal-server-slowdebug/jdk/bin/java，删掉启动前的 build 步骤，在 jdk/src/java.base/share/native/launcher/main.c 的 main 函数打断点即可断下调试，这就是 java 的入口。
 
 调试器 Mac 下默认是 LLDB，我试了下 GDB，发现 GDB 无法读取共享库的符号，导致共享库源码的断点断不下来，所以用了 LLDB。
 
@@ -37,6 +56,8 @@ breakpoint set --file /Users/yema/code/git/jdk9/jdk/src/java.base/share/native/l
 
 上网搜了一圈，用 main 函数的断点来实现这个是目前最好的方式了。
 
+### 代码跳转
+
 查看代码的时候发现很多地方报红，各种未定义，这是因为构建时，很多头文件是用相对目录定位的，我们可以从构建日志中找到编译时的头文件参数和宏定义：
 
 ```
@@ -44,3 +65,5 @@ breakpoint set --file /Users/yema/code/git/jdk9/jdk/src/java.base/share/native/l
 ```
 
 将这些 -I 的头文件目录用 include_directories 命令加到 CMakeLists.txt 中，将 -D 定义的宏用 add_definitions 命令加到 CMakeLists.txt 中即可。
+
+上面的步骤，要分别修改 jdk 和 hotspot 目录下的 CMakeLists.txt，不能在顶层 CMakeLists.txt 中改，因为两个子目录的构建参数不同，所以要分别配置。

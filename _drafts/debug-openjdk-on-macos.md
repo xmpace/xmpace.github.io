@@ -67,3 +67,51 @@ breakpoint set --file /Users/yema/code/git/jdk9/jdk/src/java.base/share/native/l
 将这些 -I 的头文件目录用 include_directories 命令加到 CMakeLists.txt 中，将 -D 定义的宏用 add_definitions 命令加到 CMakeLists.txt 中即可。
 
 上面的步骤，要分别修改 jdk 和 hotspot 目录下的 CMakeLists.txt，不能在顶层 CMakeLists.txt 中改，因为两个子目录的构建参数不同，所以要分别配置。
+
+#### 平台相关代码
+hotspot CMakeLists.txt 中 add_executable 选项里，src/os_cpu/下只保留bsd_x86，src/os/下只保留posix,bsd，src/cpu/下只保留x86
+
+#### 排除不相关代码
+把导入的多余的 Java 代码（跟结构相关的）那些都 Exclude 掉（有些 Exclude 掉仍然会跳转过去，怀疑是 CLion 的 bug，将那些文件设置 Plain Text 可解决）。
+hotspot/src/share/vm/adlc Exclude 掉。
+
+
+### 小技巧
+#### 找某个头文件是由哪个头文件传递引入的
+在当前目录创建一个与头文件同名的文件（如果引入头文件包含路径的话要连目录结构也创建出来），内容为 `#error error`，然后用编译选项 `-I .` 编译源文件，编译器会报错，包含一个头文件引入的 Stack Trace。
+
+#### 找某个变量是在哪里声明或定义的
+在源文件中定义一个同名变量名，但类型不同，编译器会报错指出之前的定义或声明在哪。
+
+typedef 类型定义也可以用这种方式找。
+
+### 问题
+hotspot/src/share/vm/runtime/os.hpp
+该头文件包含了以下几个文件，而以下几个文件只是一些代码片段，虽然符合语法，但是缺少一些上下文定义，这些代码片段只有放在 os.hpp 文件里组成完整的代码才能编译通过，于是 CLion 对这几个文件做语法分析时就报错了，连带着 os.hpp 里一块报错了，形成了一个死循环，os_posix.hpp 由于与 os.hpp 相互包含，虽然有保护头防止被重复包含，但由于 CLion 对其语法分析时通不过，于是这些保护头可能也被 CLion 忽略了，os_posix.hpp 便死活打不开（估计也是死循环了）。
+
+hotspot/src/share/vm/runtime/os_ext.hpp
+hotspot/src/os/bsd/vm/os_bsd.hpp
+hotspot/src/os_cpu/bsd_x86/vm/os_bsd_x86.hpp
+hotspot/src/os/posix/vm/os_posix.hpp
+
+暂时没有好办法，只能自己手动改代码，把那些代码片段手动复制到包含的地方后再编译。
+
+### 缩写
+pd -> Platform-dependent
+NMT -> Native memory tracking
+disp -> displacement
+CDS -> Class Data Sharing
+bcp -> byte code pointer
+locals -> pointer to locals
+fp -> frame pointer
+sp -> stack pointer
+ADLC -> Architecture Description Language Compiler
+
+### 疑问
+GuardedMemory 是用来干嘛的？
+stubs 是用来做什么的？
+ProfileInterpreter 是什么选项？
+InterpreterBackwardBranchLimit 中的 BackwardBranch 是什么？
+Arena 用来快速分配内存，预先申请一大块内存，叫 Arena，后续申请小内存就直接从这块大内存里取。
+oop 普通对象指针，为了免去生成虚函数表，JVM 直接将对象实现为一个普通 class，而没有用继承去实现，new 对象时，对象的内存地址就是 oop 的值。
+encode(Register)，对寄存器做 encoding，参考：https://eklitzke.org/x86-register-encoding。

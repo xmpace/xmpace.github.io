@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "x86 cache locking 的猜想"
-excerpt: "用例子来讲讲分布式事务 TCC"
+excerpt: "问题来源于知乎的一篇帖子"
 ---
 
 问题来源于知乎的一篇帖子：

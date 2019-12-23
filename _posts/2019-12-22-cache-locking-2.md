@@ -24,6 +24,8 @@ excerpt: "上一篇 cache locking 的猜想是错误的"
 
 我查了一下资料，在 CPU 的结构中，各个核的 cache 之间是有一条环形的 ring bus 存在的，看起来锁应该就是通过这个 bus 实现的。有一篇关于 cache locking 的[调研](https://www.researchgate.net/profile/Sparsh_Mittal/publication/286925817_A_Survey_Of_Techniques_for_Cache_Locking/links/5a3b1f2c458515a77aa8e1dd/A-Survey-Of-Techniques-for-Cache-Locking.pdf?origin=publication_detail)，介绍了 cache locking 的很多方法，但我暂时也没兴趣深挖下去，先把资料收在这。
 
+<img src="/img/posts/cache-locking-2-1.gif" alt="Ring Bus"/>
+
 这么一看，cache 其实跟内存完全就是一体的，各个核的 cache 和内存是能完全保持一致性的。所以以后分析的时候，可以将 cache 视作不存在，完全透明（除非你分析的就是 cache 本身）。
 
 各个核真正私有的，除了寄存器之外，对程序员来说比较重要的就是 store buffer 了，store buffer 正是影响 CPU 内存排序模型的因素之一，另一个影响内存排序模型的因素应该是指令流水线式的执行方式。

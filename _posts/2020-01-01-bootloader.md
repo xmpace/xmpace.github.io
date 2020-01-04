@@ -69,6 +69,8 @@ aboot 还支持 Recovery 模式，不过与其说是 aboot 支持 Recovery 模�
 
 PS: aboot 的分区一般就叫 aboot，还有个 boot 分区，那是 Linux 的 boot 分区。
 
+*更新：后来我在 /dev/block/by-name/ 目录下找到了 aboot，在小米 note3 上，aboot 分区名字叫 abl，还有个备份的 ablbak，我想，通过 dd 直接刷 abl 分区应该是可以把 aboot 刷掉的，等我哪天有空修改一下 aboot 中 unlocked 字样刷入试试。*
+
 ## 路由器的 Bootloader
 路由器的 Bootloader 跟安卓的情况差不多，不同的是，大部分路由器的 Bootloader 是可写的，不像大部分安卓的 Bootloader 不可写。
 

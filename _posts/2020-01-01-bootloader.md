@@ -86,9 +86,9 @@ MTD 不是块设备，也不是字符设备，MTD 的读写特点跟块设备不
 
 而 MTD 设备首先是划分为一块块的擦出块，每个擦除块相比块设备的块要大得多，块设备的块大小一般为 512 字节，而 MTD 的擦除块大小一般为 64K ~ 128K 字节。擦除块又划分成了一块块更小的块（一般叫页），这些页可读也可写，但写有条件，必须将整块擦除块完全擦除，才能写这一小页。MTD 设备的擦除块寿命更写入相关，比如 MLC NAND 闪存的块写入寿命大概在 1K-10K 次。
 
-MTD 设备分区时，并不像块设备那样将分区表放在 MBR/GPT 中，分区信息是直接由内核来处理的。
+有意思的是，MTD 设备分区时，并不像块设备那样将分区表放在 MBR/GPT 中，[分区信息是扫描整个设备，通过每块的标识来区分出来的](https://stackoverflow.com/a/21132251/2082315)（有点像数据恢复软件的原理）。
 
-在启动时，Bootloader 会将分区表存在内存中某个位置，或者直接从命令行传给内核。内核直接在内存中处理分区信息，不落盘。
+在启动时，Bootloader 会将扫描出来的分区表存在内存中某个位置，或者直接从命令行传给内核。内核直接在内存中处理分区信息，不落盘。
 
 路由器原厂的 Bootloader 一般都很弱，不能支持刷的第三方系统，所以玩家拿到手一般第一件事就是刷不死的 Bootloader，何谓不死 Bootloader 呢？其实并非真正不死，只是这种 Bootloader 带刷机界面，可以直接通过页面上传刷机包刷机，你只要是用这种 Bootloader 刷的机，那就怎么也刷不死，因为这种 Bootloader 怎么刷也不会把自己的地盘刷坏。
 
@@ -120,3 +120,5 @@ ISP 代码固化在了在了芯片的 irom 中。启动会默认的先从uart中
 http://www.newandroidbook.com/Articles/aboot.html
 https://blog.csdn.net/tainjau/article/details/79200432
 https://openwrt.org/docs/techref/flash.layout
+https://bootlin.com/blog/managing-flash-storage-with-linux/
+https://stackoverflow.com/questions/8585864/nand-partitioning-in-u-boot

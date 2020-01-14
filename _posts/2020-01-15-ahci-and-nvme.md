@@ -69,11 +69,10 @@ SATA 组织专门发布了白皮书 *[AHCI and NVMe as Interfaces for SATA Expre
 目前的市场上，只见过支持 NVMe 协议的 SSD，没见过支持 AHCI 的 SSD，更没见过同时支持两种协议的 SSD。
 
 ## 参考资料
-https://wiki.osdev.org/AHCI#Find_an_AHCI_controller
-https://unix.stackexchange.com/questions/144561/in-what-sense-does-sata-talk-scsi-how-much-is-shared-between-scsi-and-ata
-http://lateblt.tripod.com/atapi.htm
-https://docs.oracle.com/cd/E97728_01/E97727/html/harddiskcontrollers.html
-https://sata-io.org/system/files/member-downloads/NVMe%20and%20AHCI_%20_long_.pdf
-https://sata-io.org/sites/default/files/documents/NVMe%20and%20AHCI%20as%20SATA%20Express%20Interface%20Options%20-%20Whitepaper_.pdf
-https://en.wikipedia.org/wiki/SATA_Express
-
+1. [AHCI](https://wiki.osdev.org/AHCI)  
+2. [In what sense does SATA “talk” SCSI? How much is shared between SCSI and ATA?](https://unix.stackexchange.com/questions/144561/in-what-sense-does-sata-talk-scsi-how-much-is-shared-between-scsi-and-ata)  
+3. [An Introduction To Programming With ATA And ATAPI](http://lateblt.tripod.com/atapi.htm)  
+4. [Hard Disk Controllers: IDE, SATA (AHCI), SCSI, SAS, USB MSD, NVMe](https://docs.oracle.com/cd/E97728_01/E97727/html/harddiskcontrollers.html)  
+5. [A Comparison of NVMe and AHCI](https://sata-io.org/system/files/member-downloads/NVMe%20and%20AHCI_%20_long_.pdf)  
+6. [AHCI and NVMe as Interfaces for SATA Express™ Devices - Overview](https://sata-io.org/sites/default/files/documents/NVMe%20and%20AHCI%20as%20SATA%20Express%20Interface%20Options%20-%20Whitepaper_.pdf)  
+7. [SATA Express](https://en.wikipedia.org/wiki/SATA_Express)  

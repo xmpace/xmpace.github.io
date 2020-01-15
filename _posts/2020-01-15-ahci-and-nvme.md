@@ -4,6 +4,7 @@ title: "AHCI 与 NVMe"
 excerpt: "关于存储设备的 AHCI 与 NVMe"
 ---
 
+## ATA 与 SCSI
 现代磁盘主要有两种标准接口协议：ATA 指令集与 SCSI 指令集。
 
 与磁盘通信，同样遵循 ISO 标准分层模型：物理层、链路层、传输层和应用层。
@@ -28,6 +29,7 @@ ATA 和 SCSI 的链路接口早期都是并行的形式，分别是 PATA (Parall
 
 SATA 不包含应用层的指令集，它只是下三层：物理层、链路层、传输层的规范。与之对应的是 PATA。由于 SATA 的出现，ATA 便改名叫 PATA，与之对应，但也正因如此，当我们说到 PATA 的时候，不应该将其完全等价于 ATA，此时 PATA 仅仅是指链路部分，不包括 ATA 指令集。
 
+## AHCI
 伴随着 SATA 出现的，还有 AHCI (Advance Host Controller Interface)。AHCI 是 Intel 制定的主机控制器接口标准。AHCI 标准设计了一个 **AHCI 控制器** 来控制系统内存与 SATA 设备之间的数据交换。
 
 AHCI 控制器，又叫 **host bus adapter (HBA)**，一方面，用来连接主机总线与 SATA 接口，另一方面，它封装了 SATA 设备，为主机提供了一个标准的 PCI 接口，来操作 SATA 设备。
@@ -50,6 +52,7 @@ AHCI 标准还规定了 HBA 必须支持 ATA 和 ATAPI 设备。所以，在主�
 
 后来，固态硬盘的出现，给 SATA AHCI 带来了挑战。
 
+## NVMe
 随着固态硬盘的速度越来越快，SATA 逐渐成为了瓶颈，SATA 的设计者们意识到，要满足固态硬盘的带宽需求，还按 SATA 以前那一套搞只会越来越难，所以搞出了直接用 PCIe 总线的 SATA Express，速度算是勉强跟上了，但是奈何 AHCI 不给力，对于固态硬盘来说捉襟见肘，NVMe 协议应运而生。
 
 <img src="/img/posts/ahci-and-nvme-r2.png" os="mac"/>

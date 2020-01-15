@@ -79,3 +79,6 @@ SATA 组织专门发布了白皮书 *[AHCI and NVMe as Interfaces for SATA Expre
 5. [A Comparison of NVMe and AHCI](https://sata-io.org/system/files/member-downloads/NVMe%20and%20AHCI_%20_long_.pdf)  
 6. [AHCI and NVMe as Interfaces for SATA Express™ Devices - Overview](https://sata-io.org/sites/default/files/documents/NVMe%20and%20AHCI%20as%20SATA%20Express%20Interface%20Options%20-%20Whitepaper_.pdf)  
 7. [SATA Express](https://en.wikipedia.org/wiki/SATA_Express)  
+8. [Understanding M.2, the interface that will speed up your next SSD](https://arstechnica.com/gadgets/2015/02/understanding-m-2-the-interface-that-will-speed-up-your-next-ssd/)
+9. [How IDE Controllers Work](https://computer.howstuffworks.com/ide4.htm)  
+10. [SCSI Host Bus Adapter Drivers](https://docs.oracle.com/cd/E19683-01/806-5222/scsihba-32898/index.html)  

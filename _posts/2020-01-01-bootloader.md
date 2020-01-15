@@ -117,8 +117,9 @@ ISP 代码固化在了在了芯片的 irom 中。启动会默认的先从uart中
 所以，只要能拆机连串口，机顶盒也是刷不死的。
 
 ## 参考资料
-http://www.newandroidbook.com/Articles/aboot.html
-https://blog.csdn.net/tainjau/article/details/79200432
-https://openwrt.org/docs/techref/flash.layout
-https://bootlin.com/blog/managing-flash-storage-with-linux/
-https://stackoverflow.com/questions/8585864/nand-partitioning-in-u-boot
+- [Reverse Engineering Android's Aboot](http://www.newandroidbook.com/Articles/aboot.html)  
+- [第三章：使用HiTool下载程序](https://blog.csdn.net/tainjau/article/details/79200432)  
+- [The OpenWrt Flash Layout](https://openwrt.org/docs/techref/flash.layout)  
+- [Managing flash storage with Linux](https://bootlin.com/blog/managing-flash-storage-with-linux/)  
+- [Nand partitioning in u-boot](https://stackoverflow.com/questions/8585864/nand-partitioning-in-u-boot)  
+

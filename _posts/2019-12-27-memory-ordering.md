@@ -69,9 +69,7 @@ mov r2, mem2
 
 显然，指令的乱序执行对于内存排序是有影响的，**然而，现代 CPU 并不会任由乱序执行影响内存排序**，CPU 往往会在性能及编程易用性上（也有向前兼容考量）做一个折中，定义自己的内存排序模型，这种排序模型姑且叫它 **处理器排序模型** (processor ordering)。
 
-（图）
-
-来源：https://en.wikipedia.org/wiki/Memory_ordering
+<img src="/img/posts/memory-ordering-r1.png" os="mac" alt="图片来源：https://en.wikipedia.org/wiki/Memory_ordering"/>
 
 如图是常见处理器的内存排序模型，以我们最熟悉的 x86 为例，发现只有 Stores can be reordered after loads 这一种乱序。
 
@@ -81,6 +79,8 @@ mov r2, mem2
 x86 的 StoreLoad 重排的原因我们等下再说，先说下我们先前举的 LoadLoad 例子不重排的原因。
 
 在 x86 处理器的乱序架构中，有一个 Re-order buffer (ROB) 的结构，所有的指令会按照先后顺序在里面排列，等它们依赖的操作数准备好了就会进入 Reservation Station 等待调度执行，它们在 Reservation Station 里谁先执行谁后执行是不确定的，原因是我们前面说过的乱序执行，但它们在 ROB 中的排列是严格按照程序顺序的。
+
+<img src="/img/posts/memory-ordering-2.svg" alt="图片来源：https://en.wikipedia.org/wiki/Reservation_station"/>
 
 指令执行出了结果以后并不直接将结果写到目的地（内存或寄存器），而是又写回到 ROB 中存到对应的指令项中，这一步在指令执行中叫 write-back，指令执行还有最后一步：write-commit，也就是将结果写到真正的目的地（内存或寄存器）。x86 限制了只有当前面一条指令 write-commit 后，本条指令才会 write-commit，由于指令在 ROB 中是按程序顺序排列的，因此，内存排序也就是程序顺序了。
 
@@ -193,3 +193,7 @@ T2: access_shared_data
 6. https://courses.cs.washington.edu/courses/csep548/06au/lectures/coherency.pdf
 7. http://www2.in.tum.de/hp/file?fid=1276
 8. https://en.wikipedia.org/wiki/MESI_protocol
+9. https://en.wikipedia.org/wiki/Out-of-order_execution
+10. https://en.wikipedia.org/wiki/Re-order_buffer
+11. https://en.wikipedia.org/wiki/Tomasulo_algorithm
+12. https://en.wikipedia.org/wiki/Reservation_station

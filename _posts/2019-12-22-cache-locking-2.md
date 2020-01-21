@@ -20,7 +20,7 @@ excerpt: "上一篇 cache locking 的猜想是错误的"
 
 我之前的猜想，认为各个核的缓存之间无法实现全局的 lock，现在看来是错的。
 
-仍然以上篇文章的例子做说明，当要 lock 的内存区域同时被两个核 cache 住，此时 cache line 状态为 S。
+仍然以上篇文章的例子做说明，当要 lock 的内存区域同时被两个核 cache 住，此时 cache line 状态为 S (Shared)。
 
 其中一个核执行原子操作时，将 cache line 锁住，这个锁，应该会把所有其它核对应的 cache line 也锁住，除了正在执行原子操作的核，其它核都不能访问这个内存对应的 cache。
 
@@ -28,9 +28,37 @@ excerpt: "上一篇 cache locking 的猜想是错误的"
 
 <img src="/img/posts/cache-locking-2-1.gif" alt="Ring Bus"/>
 
-这么一看，cache 其实跟内存完全就是一体的，各个核的 cache 和内存是能完全保持一致性的。所以以后分析的时候，可以将 cache 视作不存在，完全透明（除非你分析的就是 cache 本身）。
+这么一看，cache 其实跟内存完全就是一体的，各个核的 cache 和内存是能完全保持一致性的（但不是强一致性，而是顺序一致性）。所以以后分析的时候，可以将 cache 视作不存在，完全透明（除非你分析的就是 cache 本身）。
 
 各个核真正私有的，除了寄存器之外，对程序员来说比较重要的就是 store buffer 了，store buffer 正是影响 CPU 内存排序模型的因素之一，另一个影响内存排序模型的因素应该是指令流水线式的执行方式。
+
+## cache 是否会互相 invalidate
+有一种情况，两个核都 cache 了同一块内存，cache 状态为 S，那么，如果这时两个核同时写这块内存，会发生什么？
+
+这里需要考虑一下 invalidate 的实现，为了更高的效率，invalidate 并没有实现为同步操作，而是搞了个 invalidate queue 的队列，invalidate message 发到队列中就返回了，也就是说 cache 的 invalidate 是异步的。CPU 在读 cache 时，是不会去检查 invalidate queue 的。
+
+那么是否会出现这样的情况：两个核同时写自己的 cache，并发出 invalidate message，而各自又还没来得及处理 invalidate message。此时两个核的 cache 状态都为 M，并且值不一样，这种情况是否有可能存在？
+
+这方面，我没能找到确切的资料，仍然只能猜测。我倾向于认为不会存在这样的情况。
+
+当然，我还是找到了一些资料的，只是，没有论断式的证据而已，有的只是碎片，尽管这些碎片也并不是什么权威来源，但料想人家也不会随便胡乱瞎说，因此通过这些碎片来做猜测多少还是靠谱的。
+
+> 来源于：https://courses.cs.washington.edu/courses/csep548/06au/lectures/coherency.pdf
+> keep-the-bus protocol:
+> • master holds the bus until the entire operation has completed.
+> split-transaction buses:
+> • request & response are different phases
+> • state value that indicates that an operation is in progress
+> • do not initiate another operation for a cache block that has one in progress
+
+> 来源于：http://www2.in.tum.de/hp/file?fid=1276
+> if a MESI message needs to be sent regarding a cache line in the invalidate queue then wait until the line is invalidated.
+
+据此，根据这些碎片还原的设计如下：
+
+某个核想要发某个 cache 的 MESI 消息，只能在该核的 invalidate queue 中没有该 cache 时才能发，否则，只能等 invalidate queue 中处理完该 cache 才能发。
+
+当核对 S 状态的 cache 写入时，首先会占住总线（这里是 Ring Bus），往总线发 invalidate message，此时，总线被该核独占，其它核想使用总线就必须等待，invalidate message 发完，其它核回 ack，总线即解除，此时，invalidate message 已经在其它核的 invalidate queue 中了，因此，另一个核也想发 invalidate message（也就是 MESI 消息），结果发现自己的 invalidate queue 中已经有了该 cache 的 invalidate message，于是只能把自己的 invalidate message 憋回去，然后处理自己的 invalidate queue，因此，该核的 cache 被 invalidate 了。最终，只有一个核的 cache 状态变为 M，而另一个核的 cache 变为 I。
 
 ## 关于 DMA 的一致性
 上一篇文章我提了一嘴，关于 DMA 的问题，这里再展开说一下。
@@ -58,3 +86,8 @@ DMA 其实也可以看做一个核，它也会访问内存，那这时，考虑�
 ```
 
 这是因为在编程实践中，出于对实际情况的考虑，DMA 是不会访问要加锁的内存区域的，你想想什么情况下，你会有让外设访问 lock 内存的需求呢？不存在这样的需求。当然如果你非得搞破坏，那也是能够做到的。
+
+## 参考资料
+1. https://courses.cs.washington.edu/courses/csep548/06au/lectures/coherency.pdf
+2. http://www2.in.tum.de/hp/file?fid=1276
+3. https://en.wikipedia.org/wiki/MESI_protocol

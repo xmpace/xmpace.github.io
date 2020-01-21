@@ -111,12 +111,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 100px 0 100px;
+  // margin: 10px 100px 0 100px;
   border-bottom: 1px dashed $gray-300;
+  white-space:nowrap; //不换行
 }
 
 .ym-list-item__title {
   font-size: 20px;
+  overflow: hidden; //禁止内容溢出
+  text-overflow: ellipsis; //省略号
+}
+
+@media (max-width: 1000px) {
+  .ym-list-item__title {
+    font-size: 12px;
+    overflow: hidden; //禁止内容溢出
+    text-overflow: ellipsis; //省略号
+  }
 }
 
 .ym-list-item__link {

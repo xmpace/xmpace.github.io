@@ -82,3 +82,12 @@
     });
   </script>
 {% endif %}
+
+<script>
+  /* fit font size to container width */
+  /* set with a low initial value so that the width of text container would not reach the maximum value */
+  jQuery(".post-heading .title").css("fontSize", "2px");
+  var contentContainerWidth = jQuery(".post-heading")[0].offsetWidth;
+  var textContainerWidth = jQuery(".post-heading .title")[0].offsetWidth;
+  jQuery(".post-heading .title").css("fontSize", 2 * contentContainerWidth / textContainerWidth + "px");
+</script>

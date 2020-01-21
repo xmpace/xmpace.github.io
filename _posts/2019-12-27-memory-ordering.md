@@ -36,7 +36,7 @@ mov r2, mem2
 4. 执行结果入队列
 5. 如果执行结果有依赖关系，也需要按依赖关系写回结果。（比如前后两条指令执行后结果都写回 EAX 寄存器，那么尽管后面一条指令先出结果，也要等前面那条指令写完结果再写自己的结果）
 
-> CPU 的整体执行方式从程序流驱动变成了数据流驱动<sub>[1]</sub>。（这句话直接引用自老狼的[《什么是Speculative Execution？为什么要有它？》](https://zhuanlan.zhihu.com/p/33145828)，放这里是因为觉得这句描述实在太贴切了）
+CPU 的整体执行方式从程序流驱动变成了数据流驱动<sup>[1]</sup>。
 
 由此可见，所谓乱序(Out-of-order)其实有点“名不副实”。“乱序”这个词说得好像是专门为了打乱顺序而去做的设计，其实乱序根本就不是初衷，它只是一个“副作用”而已。
 
@@ -123,7 +123,7 @@ mov r1, [mem2]
 
 mfence 可以禁止所有的重排，包括 LoadLoad、LoadStore、StoreStore。 
 
-除了 mfence，在这个场景下，带 lock 的 addl 指令也可以实现同样的效果，而且有人发现，lock addl 比 mfence 效率更高<sub>[2]</sub>，于是在 hotspot 源码中你会发现这段代码：
+除了 mfence，在这个场景下，带 lock 的 addl 指令也可以实现同样的效果，而且有人发现，lock addl 比 mfence 效率更高<sup>[2]</sup>，于是在 hotspot 源码中你会发现这段代码：
 
 ```
 inline void OrderAccess::storeload()  { fence();            }

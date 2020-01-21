@@ -197,3 +197,4 @@ T2: access_shared_data
 10. https://en.wikipedia.org/wiki/Re-order_buffer
 11. https://en.wikipedia.org/wiki/Tomasulo_algorithm
 12. https://en.wikipedia.org/wiki/Reservation_station
+13. https://preshing.com/20130922/acquire-and-release-fences/

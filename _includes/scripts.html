@@ -91,5 +91,7 @@
   var textContainerWidth = jQuery(".post-heading .title")[0].offsetWidth;
   var fontSize = 2 * contentContainerWidth / textContainerWidth;
   fontSize = fontSize > 80 ? 80 : fontSize;
+  /* reserve 2px for some thin symbols */
+  fontSize -= 2;
   jQuery(".post-heading .title").css("fontSize", fontSize + "px");
 </script>

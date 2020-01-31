@@ -69,7 +69,7 @@ SATA 组织专门发布了白皮书 *[AHCI and NVMe as Interfaces for SATA Expre
 
 左边和右边的情况不用多说。分析下中间橙色的这种情况。AHCI 驱动直接操作的是 AHCI HBA 这个设备（一个 PCIe 设备），这里直接没有 HBA 了，AHCI 驱动通过 PCIe 链路直接与 PCIe SSD 设备打交道，那显然，SSD 设备必须支持 AHCI 才行，也就是说，这种情况实际上是 AHCI HBA 放到 SSD 设备上了，与设备控制器一块组成了 AHCI Controller。
 
-目前的市场上，只见过支持 NVMe 协议的 SSD，没见过支持 AHCI 的 SSD，更没见过同时支持两种协议的 SSD。
+目前的市场上，走 PCIe 的 SSD，只见过支持 NVMe 协议的，没见过支持 AHCI 的，更没见过同时支持两种协议的 SSD。
 
 ## 参考资料
 1. [AHCI](https://wiki.osdev.org/AHCI)  

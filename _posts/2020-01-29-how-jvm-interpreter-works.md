@@ -162,7 +162,7 @@ address TemplateInterpreterGenerator::generate_normal_entry(bool synchronized) {
 
 略去其它不重要的分支逻辑，栈从前面的 _call_stub_entry 到 generate_normal_entry 变化如下：
 
-<img src="/img/posts/how-jvm-interpreter-work-r1.png" os="mac"/>
+<img src="/img/posts/how-jvm-interpreter-works-r1.png" os="mac"/>
 
 图中虽然画了一堆，但实际上我们着重关注几个就可以了，分别是 parameters, locals 以及 rbcp 寄存器。因为目前我们主要是为了研究字节码解释，而字节码解释中最重要的就是这三个。parameters 是传给 Java 方法的参数，locals 是 Java 方法用到的局部变量，rbcp 指向的则是 Java 方法的字节码。注意，parameters 也被当做 locals 局部变量统一对待，所以 rlocals 寄存器指向第一个参数。
 
@@ -215,7 +215,7 @@ istore_3
 
 这些字节码指令在表达式栈上的计算过程如下图所示，还记得前面图中画的 **表达式栈底** 的位置吧？
 
-<img src="/img/posts/how-jvm-interpreter-work-r2.png" os="mac"/>
+<img src="/img/posts/how-jvm-interpreter-works-r2.png" os="mac"/>
 
 那么这些操作需要读写内存几次呢？我们来分析一下，iload_1 从 局部变量槽 1 取数据压到表达式栈，内存读一次，写一次。iadd 将栈顶两数据取出来相加，再将结果压到表达式栈，读两次，写一次。istore_3 将表达式栈结果取出存到局部变量槽，读一次，写一次。
 
@@ -443,7 +443,7 @@ void TemplateInterpreterGenerator::generate_and_dispatch(Template* t, TosState t
 
 最后再来张图吧：
 
-<img src="/img/posts/how-jvm-interpreter-work-r3.png" os="mac"/>
+<img src="/img/posts/how-jvm-interpreter-works-r3.png" os="mac"/>
 
 每条指令执行完后，都会去方法区取下一个字节码，然后跳转到相应字节码的解释子程序执行，最后 return 的解释子程序限于篇幅没画出来，它会负责将文章上面部分说到的构建出来的栈销毁，然后返回前一个调用的方法，如果前面没有方法了（也就是说本方法是入口方法），那么该方法执行完后线程会退出。
 

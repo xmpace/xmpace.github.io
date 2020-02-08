@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MacOS CLion 中完美 Debug OpenJDK 源码"
+title: "OpenJDK 源码阅读 — MacOS CLion 中完美 Debug OpenJDK 源码"
 excerpt: "不能调试，不能代码跳转还怎么读源码？"
 ---
 

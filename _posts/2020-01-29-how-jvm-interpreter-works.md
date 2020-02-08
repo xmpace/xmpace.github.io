@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hotspot 源码阅读 — 字节码是如何被解释执行的"
+title: "OpenJDK 源码阅读 — 字节码是如何被解释执行的"
 excerpt: "Hotspot JVM 中字节码是如何被解释执行的"
 ---
 

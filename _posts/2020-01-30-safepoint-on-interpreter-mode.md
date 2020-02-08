@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hotspot 源码阅读 — 解释器模式下的 safepoint 实现"
+title: "OpenJDK 源码阅读 — 解释器模式下的 safepoint 实现"
 excerpt: "解释器模式下，Hotspot 是怎么实现 safepoint 的？"
 ---
 

@@ -1,0 +1,11 @@
+- 骨干网路由器 NE5000E
+- 无阻塞交换网络
+- 背板带宽
+- 思科 N3K 交换机
+- 中国电信运营商骨干网络架构 https://wenku.baidu.com/view/4e3ab12681c758f5f71f67b9.html
+- 路由反射器RR（Route Reflector）
+- 中国网络拓扑图 https://www.cnblogs.com/idmask/p/4707800.html
+- 模块、机框、单板
+- 大型综合布线系统的灾难备份（二） https://searchstorage.techtarget.com.cn/6-20509/
+- 机房 进线间
+- 交换机 双机热备 冗余备份

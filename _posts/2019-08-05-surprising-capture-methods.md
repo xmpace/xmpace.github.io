@@ -30,5 +30,3 @@ App 与长连服务器之间的包有什么特征呢？首先正常通信肯定�
 <img src="/img/posts/surprising-capture-methods-1.png" width="100%" alt="Charles" />
 
 怎么样？显形了吧~
-
-觉得有用的话请关注我的公众号（野马的架构之路），不定期发布技术文章，大家一起交流~

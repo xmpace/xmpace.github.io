@@ -31,7 +31,7 @@ background: /img/bg-post.jpg
 1.refresh有两个作用，一是判断token有没有被泄露，二是起个心跳的作用，表示我还活跃着，所以refresh的处理逻辑应该包含两个功能，一是检测到被泄露（被别人refresh过）则失效所有登录token，让用户重新登录，二是续约登录态
 2.主站子站都有检测被泄露的需求，为了满足需求1，主站必须支持续约，所以主站子站都需要实现refresh双token
 3.主站为子站申请的token是一次性的，子站拿着这个token能查到账号id，接着就自己生成token自己玩了，主站就可以销毁这个token了，为实现简单，可以将这个一次性token设一个较短的过期时间
-4.子站refresh token的过期时间应该与主站token过期时间一致
+4.子站refresh token的过期时间应该与主站token过期时间一致，主站的token过期时间的含义是用户在全站多久无操作即需要重新登录，长期无操作，说明用户不用这个设备了，但可能忘了退出，这时候应该自动帮用户退出，所以token需要过期时间
 5.主站token二合一，只有一个token，既用来申请子站token，也用来刷新自身
 6.refresh token被黑客拿到，refresh 只有一个会成功，失败的那个如果继续请求，就应该把另一个成功的顶下线，以保证安全
 7.考虑到上一条，token应该有tokenId编号，相关联的token用一个id，比如token refresh后tokenId不变，因此只要保证每次登录生成的tokenId不一样就行，random16即可，理论上，允许同时登录多少个实例，就用多少个编号做tokenId就行

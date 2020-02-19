@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "App抓包另类方法"
+title: "利用降级攻击对长连接App抓包"
 excerpt: App抓不到包？试试这个另类的方法！
 background: /img/bg-post.jpg
 redirect_from:

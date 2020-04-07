@@ -14,7 +14,7 @@ excerpt: "解释器模式下，Hotspot 是怎么实现 safepoint 的？"
 
 该方法的关键代码如下：
 
-```
+```cpp
 void SafepointSynchronize::begin() {
   // 锁住 Threads_lock，这把锁是关键，所有的应用线程都会被 block 在这把锁上
   Threads_lock->lock();
@@ -49,7 +49,7 @@ void SafepointSynchronize::begin() {
 
 然后看看应用线程是怎么与 VM 线程协调达成 STW 的，应用线程会在 safepoint 检查逻辑中调用 SafepointSynchronize::block(JavaThread *thread) 方法，该方法也在 safepoint.cpp 中，它的关键代码如下：
 
-```
+```cpp
 void SafepointSynchronize::block(JavaThread *thread) {
 
   // 保证下面操作的原子性
@@ -85,7 +85,7 @@ void SafepointSynchronize::block(JavaThread *thread) {
 
 VM 执行 SafepointSynchronize::begin() 时有一行代码：Interpreter:notice_safepoints()
 
-```
+```cpp
 void TemplateInterpreter::notice_safepoints() {
   if (!_notice_safepoints) {
     // switch to safepoint dispatch table
@@ -99,7 +99,7 @@ void TemplateInterpreter::notice_safepoints() {
 
 那么 _safept_table 有什么特别的地方呢？
 
-```
+```cpp
 TemplateInterpreterGenerator::generate_all() {
   Interpreter::_safept_entry =
       EntryPoint(
@@ -131,7 +131,7 @@ address TemplateInterpreterGenerator::generate_safept_entry_for(
 
 InterpreterRuntime::at_safepoint 这个方法是用宏定义的，这里把它的核心代码还原一下：
 
-```
+```cpp
 void InterpreterRuntime::at_safepoint(JavaThread* thread) {
   ThreadInVMfromJava __tiv(thread);
 }

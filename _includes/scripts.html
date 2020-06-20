@@ -86,10 +86,10 @@
 <script>
   /* fit font size to container width */
   /* set with a low initial value so that the width of text container would not reach the maximum value */
-  jQuery(".post-heading .title").css("fontSize", "2px");
+  jQuery(".post-heading .title").css("fontSize", "10px");
   var contentContainerWidth = jQuery(".post-heading")[0].offsetWidth;
   var textContainerWidth = jQuery(".post-heading .title")[0].offsetWidth;
-  var fontSize = 2 * contentContainerWidth / textContainerWidth;
+  var fontSize = 10 * contentContainerWidth / textContainerWidth;
   fontSize = fontSize > 80 ? 80 : fontSize;
   /* reserve 2px for some thin symbols */
   fontSize -= 2;

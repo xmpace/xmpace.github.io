@@ -13,3 +13,6 @@ background: /img/bg-post.jpg
 
 如果数据与结构分离，那往往会有读性能，需要先读结构，然后批量去拼装数据。
 如果数据与结构不分离，读性能会比较好，但可能会有抽不出（或还原不出）结构的问题，另外也无法做按需加载。
+
+Single Source Of Truth
+https://en.wikipedia.org/wiki/Single_source_of_truth
